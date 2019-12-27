@@ -17,4 +17,5 @@ class Crawler:
         for i in my_titles:
             print(i.text)
             self.rankData.append(RankData(cnt + 1, i.text))
+            cnt += 1
     

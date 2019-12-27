@@ -6,7 +6,7 @@ from webcrawling import Crawler
 class DB:
     DB_NAME = 'datadb'
     def __init__(self):
-        self.cnx = mysql.connector.connect(user='lalaalal', password='qhsxlsEndEl^3^',
+        self.cnx = mysql.connector.connect(user='root', password='1234',
                                     host='127.0.0.1',
                                     use_pure=False)
         self.cursor = self.cnx.cursor()
@@ -53,10 +53,12 @@ class DB:
         rank = rankData.rank
         data = rankData.data
         try:
+            print("INSERT INTO ranktbl VALUES (DEFAULT, DEFAULT, {}, '{}')".format(rank, data))
             self.cursor.execute("INSERT INTO ranktbl VALUES (DEFAULT, DEFAULT, {}, '{}')".format(rank, data))
         except mysql.connector.Error as err:
             print("Failed creating database: {}".format(err))
             exit(1)
 
     def __del__(self):
+        self.cnx.commit()
         self.cnx.close()
